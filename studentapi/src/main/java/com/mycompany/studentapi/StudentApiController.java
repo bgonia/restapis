@@ -1,8 +1,10 @@
 package com.mycompany.studentapi;
 
 
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/students")
+@Validated
 public class StudentApiController {
 
     private static List<Student> listStudents = new ArrayList<>();
@@ -47,7 +50,7 @@ public class StudentApiController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") Integer id){
+    public ResponseEntity<?> delete(@PathVariable("id") @Positive(message = "Student ID must be grater than zero") Integer id){
         Student student = new Student(id);
 
         if(listStudents.contains(student)){
