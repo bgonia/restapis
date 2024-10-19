@@ -1,18 +1,30 @@
-package com.mycompany.studentapi;
+package com.mycompany.studentapi.repository;
+
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
+@Entity
+@Table(name = "student")
 public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(unique = true, nullable = false, length = 30)
     private String name;
 
-    public Student(Integer id, String name) {
-        this.id = id;
-        this.name = name;
+    public Student() {
     }
 
     public Student(Integer id) {
         this.id = id;
+    }
+
+    public Student(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Integer getId() {
